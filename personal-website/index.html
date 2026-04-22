@@ -336,6 +336,40 @@
       transform: translateY(0);
     }
 
+    /* ── Reduced motion ── */
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      .hero-role-dot {
+        animation: none;
+      }
+
+      .scroll-indicator,
+      .scroll-indicator svg {
+        animation: none;
+      }
+
+      .reveal {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
+
+      .reveal.visible {
+        opacity: 1;
+        transform: none;
+      }
+
+      nav,
+      .nav-link,
+      .footer-links a,
+      .tag {
+        transition: none;
+      }
+    }
+
     /* ── Responsive ── */
     @media (max-width: 600px) {
       .about-top {
