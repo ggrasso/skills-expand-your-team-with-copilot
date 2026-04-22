@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Name</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #FAFAF8;
+      --surface: #FFFFFF;
+      --text-primary: #111111;
+      --text-secondary: #6B7280;
+      --border: #E5E7EB;
+      --tag-bg: #F3F4F6;
+      --tag-hover: #E5E7EB;
+      --accent: #111111;
+      --nav-height: 64px;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg);
+      color: var(--text-primary);
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Navigation ── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: var(--nav-height);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 clamp(1.5rem, 5vw, 5rem);
+      background: rgba(250, 250, 248, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid transparent;
+      z-index: 100;
+      transition: border-color 0.3s;
+    }
+
+    nav.scrolled {
+      border-color: var(--border);
+    }
+
+    .nav-name {
+      font-size: 0.95rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: var(--text-primary);
+      text-decoration: none;
+    }
+
+    .nav-link {
+      font-size: 0.875rem;
+      font-weight: 400;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-link:hover {
+      color: var(--text-primary);
+    }
+
+    /* ── Hero ── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: var(--nav-height) clamp(1.5rem, 5vw, 5rem) 4rem;
+    }
+
+    .hero-inner {
+      max-width: 900px;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.8125rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .hero-eyebrow::before {
+      content: '';
+      display: inline-block;
+      width: 2rem;
+      height: 1px;
+      background: var(--text-secondary);
+      flex-shrink: 0;
+    }
+
+    h1 {
+      font-size: clamp(3rem, 8vw, 6.5rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.0;
+      color: var(--text-primary);
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-sub {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      font-weight: 400;
+      color: var(--text-secondary);
+      max-width: 520px;
+      line-height: 1.7;
+      margin-bottom: 3rem;
+    }
+
+    .hero-role {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9375rem;
+      font-weight: 500;
+      color: var(--text-primary);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 0.4rem 1rem;
+      background: var(--surface);
+    }
+
+    .hero-role-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #22C55E;
+      flex-shrink: 0;
+      box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.2);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.2); }
+      50%       { box-shadow: 0 0 0 6px rgba(34, 197, 94, 0.1); }
+    }
+
+    /* Scroll indicator */
+    .scroll-indicator {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--text-secondary);
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      animation: fadeIn 1s 1.2s both;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .scroll-indicator svg {
+      animation: bounce 1.8s ease-in-out infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(5px); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateX(-50%) translateY(8px); }
+      to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+    }
+
+    /* ── About ── */
+    #about {
+      padding: 7rem clamp(1.5rem, 5vw, 5rem);
+      border-top: 1px solid var(--border);
+      scroll-margin-top: 6rem;
+    }
+
+    .about-inner {
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      margin-bottom: 3rem;
+    }
+
+    .about-top {
+      display: flex;
+      align-items: flex-start;
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .avatar {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #D1D5DB 0%, #9CA3AF 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #FFFFFF;
+      flex-shrink: 0;
+      letter-spacing: -0.02em;
+    }
+
+    .about-name-block h2 {
+      font-size: 1.375rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.2rem;
+    }
+
+    .about-name-block p {
+      font-size: 0.9375rem;
+      color: var(--text-secondary);
+    }
+
+    .about-bio {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      margin-bottom: 2.5rem;
+    }
+
+    .about-bio strong {
+      color: var(--text-primary);
+      font-weight: 500;
+    }
+
+    .tags-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      margin-bottom: 1rem;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .tag {
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: var(--text-primary);
+      background: var(--tag-bg);
+      border-radius: 6px;
+      padding: 0.35rem 0.75rem;
+      transition: background 0.15s;
+      cursor: default;
+    }
+
+    .tag:hover {
+      background: var(--tag-hover);
+    }
+
+    /* ── Footer ── */
+    footer {
+      padding: 3rem clamp(1.5rem, 5vw, 5rem);
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .footer-copy {
+      font-size: 0.8125rem;
+      color: var(--text-secondary);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .footer-links a {
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: var(--text-primary);
+    }
+
+    /* ── Scroll reveal ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── Reduced motion ── */
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      .hero-role-dot {
+        animation: none;
+      }
+
+      .scroll-indicator,
+      .scroll-indicator svg {
+        animation: none;
+      }
+
+      .reveal {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
+
+      .reveal.visible {
+        opacity: 1;
+        transform: none;
+      }
+
+      nav,
+      .nav-link,
+      .footer-links a,
+      .tag {
+        transition: none;
+      }
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 600px) {
+      .about-top {
+        flex-direction: column;
+        gap: 1.25rem;
+      }
+
+      footer {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav id="nav">
+    <a href="#hero" class="nav-name">Your Name</a>
+    <a href="#about" class="nav-link">About</a>
+  </nav>
+
+  <!-- Hero -->
+  <section id="hero">
+    <div class="hero-inner">
+      <p class="hero-eyebrow">Available for opportunities</p>
+      <h1>Your<br>Name.</h1>
+      <p class="hero-sub">
+        Building thoughtful software at the intersection of design and engineering.
+        Focused on making things that are simple, fast, and human.
+      </p>
+      <div class="hero-role">
+        <span class="hero-role-dot"></span>
+        Software Engineer · Designer · Creator
+      </div>
+    </div>
+    <a href="#about" class="scroll-indicator" aria-label="Scroll to About">
+      Scroll
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+        <path d="M8 3v10M3.5 8.5L8 13l4.5-4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
+  </section>
+
+  <!-- About -->
+  <section id="about">
+    <div class="about-inner">
+      <p class="section-label">About</p>
+
+      <div class="about-top reveal">
+        <div class="avatar" aria-hidden="true">YN</div>
+        <div class="about-name-block">
+          <h2>Your Name</h2>
+          <p>Software Engineer · Based in Your City</p>
+        </div>
+      </div>
+
+      <p class="about-bio reveal">
+        I'm a software engineer who loves crafting clean, performant experiences.
+        I care deeply about <strong>design, accessibility, and the details</strong> that make
+        a product feel polished. When I'm not writing code, you'll find me exploring
+        new tools, reading about product thinking, or working on side projects.
+      </p>
+
+      <p class="about-bio reveal">
+        I believe the best software is invisible — it just works, beautifully, without
+        getting in the way. I'm always looking for opportunities to collaborate on
+        meaningful problems.
+      </p>
+
+      <div class="reveal">
+        <p class="tags-label">Interests &amp; Skills</p>
+        <div class="tags">
+          <span class="tag">TypeScript</span>
+          <span class="tag">React</span>
+          <span class="tag">Python</span>
+          <span class="tag">System Design</span>
+          <span class="tag">UI / UX</span>
+          <span class="tag">Open Source</span>
+          <span class="tag">Performance</span>
+          <span class="tag">Accessibility</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <span class="footer-copy">© 2026 Your Name</span>
+    <div class="footer-links">
+      <a href="https://github.com/" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a href="https://linkedin.com/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <a href="mailto:hello@example.com">Email</a>
+    </div>
+  </footer>
+
+  <script>
+    // Nav border on scroll
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 10);
+    }, { passive: true });
+
+    // Scroll reveal
+    const observer = new IntersectionObserver(
+      (entries) => entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      }),
+      { threshold: 0.15 }
+    );
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
